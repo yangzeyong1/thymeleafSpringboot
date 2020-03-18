@@ -1,0 +1,48 @@
+server:
+  port: 8082
+
+spring: #1 代表启动项目的时候就立即初始化dispatcherServlet；不配置默认是请求访问的时候才加载
+  mvc:
+    servlet:
+      load-on-startup: 1
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/springboot?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    #   配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall,log4j
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+
+  thymeleaf:
+    cache: false
+    mode: HTML5
+    encoding: utf-8
+
+  messages: #配置国际化
+    basename: i18n.login
+
+logging: #使用slf4j控制控制台打印信息级别
+  level:
+    com.yzy: debug #相当一个开关，程序中打印用log.debug("debug--------hello word");正式版只要把此处的debug改为info即可屏蔽相应打印信息
+  path: "D:/test/thymeleaf.log"
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: com.yzy.pojo #配置别名
+  configuration:
+    map-underscore-to-camel-case: true #true可以识别驼峰命名
