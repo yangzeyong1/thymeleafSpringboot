@@ -3,6 +3,7 @@ package com.yzy.service;
 import com.yzy.mapper.HeroMapper;
 import com.yzy.pojo.Hero;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class HeroServiceImpl implements HeroService {
         System.out.println("是否成功添加="+insert);
     }
 
+    @Cacheable(value = "hero", key = "#root.args[0]", unless = "#result eq null ")
     @Override
     public Hero getHeroById(Integer id) {
         Hero hero = heroMapper.selectByPrimaryKey(id);

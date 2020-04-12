@@ -27,6 +27,18 @@ spring: #1 代表启动项目的时候就立即初始化dispatcherServlet；不�
     maxPoolPreparedStatementPerConnectionSize: 20
     useGlobalDataSourceStat: true
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    lettuce:
+      pool:
+        max-idle: 8
+        min-idle: 0
+        max-active: 8
+  rabbitmq:
+    addresses: 127.0.0.1
+    username: guest
+    password: guest
 
   thymeleaf:
     cache: false
@@ -38,7 +50,7 @@ spring: #1 代表启动项目的时候就立即初始化dispatcherServlet；不�
 
 logging: #使用slf4j控制控制台打印信息级别
   level:
-    com.yzy: debug #相当一个开关，程序中打印用log.debug("debug--------hello word");正式版只要把此处的debug改为info即可屏蔽相应打印信息
+    com.yzy: error #相当一个开关，程序中打印用log.debug("debug--------hello word");正式版只要把此处的debug改为info即可屏蔽相应打印信息
   path: "D:/test/thymeleaf.log"
 
 mybatis:

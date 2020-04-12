@@ -51,11 +51,13 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
-        <!--热部署-->
-        <dependency>
+        <!--热部署   使用redis做缓存的时候，热部署会导致从缓存中获取数据时，发生强制转换异常（同一个包同一个类），
+        原因是 使用热部署会 当对象序列化到缓存中时，应用程序类加载器是C1。然后，更改一些代码或者配置后，devtools会自动重新启动上下文并创建一个新的类加载器C2。
+        所以当你通过redis操作获取缓存反序列化的时候应用的类加载器是C2，虽然包名及其来类名完全一致，但是序列化与反序列化是通过不同的类加载器加载则在JVM中它们也不是同一个类-->
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-        </dependency>
+        </dependency>-->
 
         <!--使用druid连接池-->
         <dependency>
@@ -99,6 +101,54 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
+
+        <!--redis-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
+
+        <!--rabbitMQ-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+
+        <!--quartz任务调度-->
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>2.2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz-jobs</artifactId>
+            <version>2.2.3</version>
+        </dependency>
+
+        <!--webservice-->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-spring-boot-starter-jaxws</artifactId>
+            <version>3.2.4</version>
+        </dependency>
+        <dependency>
+            <groupId>wsdl4j</groupId>
+            <artifactId>wsdl4j</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>
